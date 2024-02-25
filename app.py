@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.fields.simple import PasswordField
 from wtforms.validators import DataRequired
-
+import requests
 
 class NameForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
@@ -22,10 +22,16 @@ def home():
 def about():
     return render_template('about.html')
 
+
+def answer():
+    res = requests.get('https://example.com')
+    return res.headers
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = NameForm()
-    return render_template('login.html', form=form)
+    result = answer()
+    return render_template('login.html', form=form, answer=result)
 
 @app.route('/signup')
 def signup():
