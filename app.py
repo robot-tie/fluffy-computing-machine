@@ -1,7 +1,18 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.fields.simple import PasswordField
+from wtforms.validators import DataRequired
+
+
+class NameForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'Pur2s3cr3t'
 bootstrap = Bootstrap(app)
 @app.route('/')
 def home():
@@ -11,9 +22,10 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    form = NameForm()
+    return render_template('login.html', form=form)
 
 @app.route('/signup')
 def signup():
