@@ -18,18 +18,22 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/signup">Sign Up</a></li>
+                {% if current_user.is_authenticated: %}
+                    <li><a href="/logout">Logout</a></li>
+                {% else: %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Sign Up</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </div>
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="media-middle">
-            <p>Sign up and start searching</p>
-        </div>
-
+<div class="container">
+    <div class="page-header">
+        <h1>Your account:</h1>
+        {{ your_email }}
     </div>
+</div>
 {% endblock %}
