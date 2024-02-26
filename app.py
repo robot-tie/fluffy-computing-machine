@@ -61,13 +61,17 @@ def register():
     if regform.validate_on_submit():
         email = request.form['email']
         password = request.form['password']
-        hashed_password = generate_password_hash(password)
-        new_user = User(email=email, password_hash=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        # Here, you would typically insert the data into a database
-        flash(f'Account created for {regform.email.data}!', 'success')
-        return redirect(url_for('login'))
+        user1 = User.query.filter_by(email=email).first()
+        if user1 is None:
+            hashed_password = generate_password_hash(password)
+            new_user = User(email=email, password_hash=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            # Here, you would typically insert the data into a database
+            flash(f'Account created for {regform.email.data}!', 'success')
+            return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=regform)
 
 
