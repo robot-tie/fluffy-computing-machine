@@ -89,8 +89,9 @@ def login():
             if user1 and check_password_hash(user1.password_hash, password):
                 session['user_id'] = user1.id
                 login_user(user1)
+                flash("You were logged in successfully..")
                 return redirect(url_for('account'))
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, )
 
 
 @app.route('/logout')
