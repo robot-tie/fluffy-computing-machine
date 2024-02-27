@@ -14,7 +14,7 @@ import email_validator
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '(R@yz0rSecretedKey5000);'
+app.config['SECRET_KEY'] = '(SuperSecretKey5000);'
 db = SQLAlchemy(app)
 
 
