@@ -12,8 +12,6 @@ from flask_login import login_required, current_user, LoginManager, UserMixin, l
 import email_validator
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Pur2s3cr3t'
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '(R@yz0rSecretedKey5000);'
@@ -51,10 +49,14 @@ def home():
 def about():
     return render_template('about.html')
 
+
 @app.route('/account')
+@login_required
 def account():
     your_email = current_user.email
     return render_template('account.html', your_email=your_email)
+
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     regform = RegistrationForm()
